@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Промокоды — АльфА</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .codes { display: grid; gap: 10px; max-width: 520px; }
+    .code {
+      display: flex; align-items: center; gap: 12px; justify-content: space-between;
+      background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px;
+    }
+    .code b { font-family: Consolas, "Courier New", monospace; font-size: 19px; letter-spacing: 1px; user-select: all; }
+    .code small { display: block; color: var(--muted); font-size: 13px; }
+    .code button {
+      flex: none; background: var(--accent); color: var(--bg); border: 0; border-radius: 8px;
+      padding: 8px 14px; font: inherit; font-weight: 700; cursor: pointer;
+    }
+    .code button.done { background: var(--accent-2); }
+    .code button:focus-visible { outline: 2px solid var(--text); outline-offset: 2px; }
+  </style>
+</head>
+<body>
+<header>
+  <div class="bar">
+    <a class="logo" href="index.html">[ALP] <span>АльфА</span></a>
+    <nav>
+      <a href="index.html">Главная</a>
+      <a href="rules.html">Правила</a>
+      <a href="activities.html">События</a>
+      <a href="vs.html">VS</a>
+      <a href="guides.html">Гайды</a>
+      <a class="active" href="promo.html">Промокоды</a>
+      <a href="leaders.html">🔒 Руководство</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <h1>Промокоды</h1>
+  <p class="lead">Нажми «Скопировать» и вставь код в игре. Свежие — сверху.</p>
+
+  <p>Путь в игре: <b>Аватар → Настройки → Ввести код → вставить → Подтвердить</b>. <a href="#how">Инструкция со скринами</a></p>
+
+  <!-- НОВЫЙ КОД: скопируй блок <div class="code">…</div> и поставь его ПЕРВЫМ в списке.
+       Поменяй код в <b>…</b> и дату в <small>…</small>. -->
+  <div class="codes">
+    <div class="code">
+      <div><b>DC100KPVNF</b><small>добавлен 01.11.2026</small></div>
+      <button type="button">Скопировать</button>
+    </div>
+    <div class="code">
+      <div><b>VK130KQHJH</b><small>добавлен 01.11.2026</small></div>
+      <button type="button">Скопировать</button>
+    </div>
+  </div>
+
+  <section id="how">
+    <h2>Как ввести код</h2>
+    <ol class="steps">
+      <li>Нажми на свой <b>аватар</b> в левом верхнем углу.
+        <img class="shot" src="img/promo-1-avatar.jpg" alt="Аватар в левом верхнем углу обведён"></li>
+      <li>В профиле внизу нажми <b>«Настройки»</b>.
+        <img class="shot" src="img/promo-2-profile.jpg" alt="Кнопка «Настройки» в профиле обведена"></li>
+      <li>Нажми <b>«Ввести код»</b>.
+        <img class="shot" src="img/promo-3-settings.jpg" alt="Кнопка «Ввести код» обведена"></li>
+      <li>Вставь код в поле (1) и нажми <b>«Подтвердить»</b> (2).
+        <img class="shot" src="img/promo-4-code.jpg" alt="1 — поле для кода, 2 — кнопка «Подтвердить»"></li>
+    </ol>
+  </section>
+
+  <div class="note">Код не сработал? Скорее всего, он уже истёк. Напиши в чат альянса — уберём.</div>
+</main>
+
+<footer>Фанатский сайт альянса [ALP] АльфА. Не связан с разработчиками Z:Route. · <a href="leaders.html">Руководство</a></footer>
+
+<script>
+document.querySelectorAll('.code button').forEach(function (btn) {
+  btn.addEventListener('click', function () {
+    var el = btn.parentNode.querySelector('b');
+    var text = el.textContent.trim();
+    function ok() { btn.textContent = 'Скопировано'; btn.classList.add('done');
+      setTimeout(function () { btn.textContent = 'Скопировать'; btn.classList.remove('done'); }, 1500); }
+    function fallback() { var r = document.createRange(); r.selectNodeContents(el);
+      var s = getSelection(); s.removeAllRanges(); s.addRange(r); btn.textContent = 'Выделено — скопируй'; }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(ok, fallback);
+    } else { fallback(); }
+  });
+});
+</script>
+</body>
+</html>

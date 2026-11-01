@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Руководство — АльфА</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .login { max-width: 360px; display: grid; gap: 10px; }
+    .login input {
+      font: inherit; padding: 10px 12px; border-radius: 8px; border: 1px solid var(--line);
+      background: var(--panel); color: var(--text);
+    }
+    .login input:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+    .login button { border: 0; cursor: pointer; font: inherit; }
+    .err { color: var(--danger); min-height: 1.4em; margin: 0; }
+    .today-box { font-size: 18px; margin: 4px 0 14px; }
+    .today-box b { color: var(--accent); }
+    .link-btn { background: none; border: 0; color: var(--muted); text-decoration: underline; cursor: pointer; font: inherit; padding: 0; }
+  </style>
+</head>
+<body>
+<header>
+  <div class="bar">
+    <a class="logo" href="index.html">[ALP] <span>АльфА</span></a>
+    <nav>
+      <a href="index.html">Главная</a>
+      <a href="rules.html">Правила</a>
+      <a href="activities.html">События</a>
+      <a href="vs.html">VS</a>
+      <a href="guides.html">Гайды</a>
+      <a href="promo.html">Промокоды</a>
+      <a class="active" href="leaders.html">🔒 Руководство</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <h1>Для руководства</h1>
+
+  <form id="login" class="login" autocomplete="off">
+    <p class="lead" style="margin:0">Расписание машинистов. Вход только для лидера и Р4.</p>
+    <label for="pw">Пароль</label>
+    <input id="pw" type="password" required>
+    <button class="btn" type="submit">Войти</button>
+    <p class="err" id="err" role="alert"></p>
+  </form>
+
+  <section id="content" hidden>
+    <p class="today-box" id="today-box"></p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>День</th><th>Машинист</th><th>Запасной</th></tr></thead>
+        <tbody id="rows"></tbody>
+      </table>
+    </div>
+    <p class="lead" id="note" style="font-size:14px"></p>
+    <button class="link-btn" id="logout" type="button">Выйти</button>
+  </section>
+</main>
+
+<footer>Фанатский сайт альянса [ALP] АльфА. Не связан с разработчиками Z:Route.</footer>
+
+<!-- Зашифрованное расписание. Без пароля не читается. Обновляется скриптом encrypt.py. -->
+<script id="vault" type="application/json">{"s": "3EueqA7LZBkFmaEEug9qKA==", "i": "gwAvu7NgejylkBYc", "n": 250000, "c": "zPZ/dNAZ3rkwFHrg2XNllJo3/Gz+4ZqW1Y9IBqU7cbHB3ptUWLHCJbs4GhqcZix3cdyWRFMve6emoerpBhrZ5xYiIgIeEVOxlVWFrc7IPC6RQB0S56g6qdpd2NLkHkVGRgT68kgCKbQREJl14Roo+2A1H5uql2+pWWeV69CCGcRlFV3/IaPy2uKn2RkmVitpiljNcmjvYiCY0mzZVMuM5ShdqGSVXMzYjC3fpfG1w/v0qzajlm+wp5tcAn7qmUFWrOKLA2Kyi7Fc3kh1A24Bv9bmX4+2+sApAcKnldWSTXP925v1Jt2CBRQL5ZI72C1hblfFEsLu8tsQ4Ux1rgatyfxwlPJqVvBbdig4c6xhto8I494RJ5XN/l8ujxXoRcKV5216ZLI03dStIPYuw7igtKGdbUbpPJQx+QORrMS5sFojMVPxxL19UdoHTa7OD1RoFyiIhZBy4bkjNdq1XFlhE0jQmPHsuXr/SJPCjsg7qfqxa88HNxN03CTcHH5fA+3VSXc8XgE4THU+BHljjFi5oo/TOYlZwJvn/wsSVKr0+IozFERl7zkb8xcdURaOtvG7qdzPfdAGqi1GQ1/jVjSN6TwStzk1+YCCKp34mTFCD2vAogGp1mVhomb3PVBLC0Ja8hGgx35DNXuQ5fU7Ob9monlUdPn3MLldYXhutV0O282pZMxh86W8UE5Q4QPF/gLn4LIdjjsVcL6J5gL2yFrgeT1P2ioDBEXWT6LbV/HIJXduf41FULF86NMrQLdUwzZdCwCU4fQ0uG8ji5wom49P+ZA="}</script>
+
+<script>
+(function () {
+  var KEY = 'alp-leaders-pw';
+  var vault = JSON.parse(document.getElementById('vault').textContent);
+  var b64 = function (s) { return Uint8Array.from(atob(s), function (c) { return c.charCodeAt(0); }); };
+  var esc = function (s) { var d = document.createElement('div'); d.textContent = s; return d.innerHTML; };
+
+  async function decrypt(pw) {
+    var base = await crypto.subtle.importKey('raw', new TextEncoder().encode(pw), 'PBKDF2', false, ['deriveKey']);
+    var key = await crypto.subtle.deriveKey(
+      { name: 'PBKDF2', salt: b64(vault.s), iterations: vault.n, hash: 'SHA-256' },
+      base, { name: 'AES-GCM', length: 256 }, false, ['decrypt']);
+    var buf = await crypto.subtle.decrypt({ name: 'AES-GCM', iv: b64(vault.i) }, key, b64(vault.c));
+    return JSON.parse(new TextDecoder().decode(buf));
+  }
+
+  function show(data) {
+    var day = new Date(Date.now() - 2 * 3600 * 1000).getUTCDay() || 7; // игровое время UTC-2
+    var html = '', today = null;
+    data.rows.forEach(function (r) {
+      if (r.d === day) today = r;
+      html += '<tr data-day="' + r.d + '"' + (r.d === day ? ' class="today"' : '') + '><td>' + esc(r.day) +
+              '</td><td>' + esc(r.main) + '</td><td>' + esc(r.reserve) + '</td></tr>';
+    });
+    document.getElementById('rows').innerHTML = html;
+    document.getElementById('today-box').innerHTML = today
+      ? 'Сегодня машинист: <b>' + esc(today.main) + '</b> · запасной: ' + esc(today.reserve) : '';
+    document.getElementById('note').textContent = data.note || '';
+    document.getElementById('login').hidden = true;
+    document.getElementById('content').hidden = false;
+  }
+
+  async function tryLogin(pw, silent) {
+    try {
+      var data = await decrypt(pw);
+      try { sessionStorage.setItem(KEY, pw); } catch (e) {}
+      show(data);
+    } catch (e) {
+      if (!silent) document.getElementById('err').textContent = 'Неверный пароль.';
+    }
+  }
+
+  document.getElementById('login').addEventListener('submit', function (e) {
+    e.preventDefault();
+    document.getElementById('err').textContent = '';
+    tryLogin(document.getElementById('pw').value, false);
+  });
+  document.getElementById('logout').addEventListener('click', function () {
+    try { sessionStorage.removeItem(KEY); } catch (e) {}
+    document.getElementById('rows').innerHTML = '';
+    document.getElementById('pw').value = '';
+    document.getElementById('content').hidden = true;
+    document.getElementById('login').hidden = false;
+  });
+
+  var saved = null;
+  try { saved = sessionStorage.getItem(KEY); } catch (e) {}
+  if (saved) tryLogin(saved, true);
+})();
+</script>
+</body>
+</html>
