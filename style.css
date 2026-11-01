@@ -146,3 +146,4 @@ td.num { text-align: right; white-space: nowrap; font-variant-numeric: tabular-n
 .video-wrap { position: relative; width: 100%; max-width: 640px; aspect-ratio: 16 / 9; border-radius: 10px; overflow: hidden; background: #000; margin: 8px 0; }
 .video-wrap iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
 .video-wrap.vertical { max-width: 340px; aspect-ratio: 9 / 16; }
+details ul.plain ul.plain { margin-top: 4px; }
