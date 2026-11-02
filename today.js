@@ -1,7 +1,7 @@
-// Подсветка сегодняшнего дня по игровому времени (UTC-2, как в настройках игры).
+// Подсветка сегодняшнего дня по времени сервера: новый день начинается в 05:00 МСК (= 02:00 UTC).
 // Элементы с data-day="1".."7" (1 = понедельник, 7 = воскресенье) получают класс "today".
 (function () {
-  var GAME_UTC_OFFSET = -2; // часовой пояс игры
+  var GAME_UTC_OFFSET = -2; // 05:00 МСК = полночь сервера
   var now = new Date(Date.now() + GAME_UTC_OFFSET * 3600 * 1000);
   var day = now.getUTCDay() || 7; // 1..7, воскресенье = 7
 
@@ -30,4 +30,27 @@
   var plan = document.getElementById('today-plan');
   if (title) title.textContent = (tpl && tpl.getAttribute('data-title')) || names[day];
   if (plan && tpl) plan.appendChild(tpl.content.cloneNode(true));
+  var drv = document.getElementById('today-driver');
+  if (drv && tpl && tpl.getAttribute('data-driver')) {
+    drv.innerHTML = '🚂 Машинист сегодня: <b></b>';
+    drv.querySelector('b').textContent = tpl.getAttribute('data-driver');
+    drv.hidden = false;
+  }
+
+  // Сколько осталось до смены дня (05:00 МСК) + автообновление страницы в момент смены
+  var DAY = 86400000, SHIFT = -GAME_UTC_OFFSET * 3600000;
+  var nextReset = Math.floor((Date.now() - SHIFT) / DAY + 1) * DAY + SHIFT;
+  var left = document.getElementById('day-left');
+  function tick() {
+    var ms = nextReset - Date.now();
+    if (ms <= 0) { location.reload(); return; }
+    if (left) {
+      var h = Math.floor(ms / 3600000), m = Math.floor(ms % 3600000 / 60000);
+      left.textContent = 'Новый день через ' + (h || m ? h + ' ч ' + m + ' мин' : 'минуту') + ' (в 05:00 МСК)';
+    }
+  }
+  tick();
+  setInterval(tick, 30000);
+  // Телефон «усыпляет» вкладку — проверяем, когда к ней вернулись
+  document.addEventListener('visibilitychange', function () { if (!document.hidden) tick(); });
 })();

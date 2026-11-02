@@ -24,71 +24,111 @@
 
 <main>
   <h1>Соревнование альянсов VS</h1>
-  <p class="lead">6 дней — 6 тем, воскресенье — перерыв. Каждый день начинается в 05:00 МСК (00:00 по игровому времени). Цикл идёт две недели подряд.</p>
+  <p class="lead">6 дней — 6 тем, воскресенье — перерыв. День начинается в <b>05:00 МСК</b> — подсветка «сегодня» переключается сама. Цикл идёт две недели подряд.</p>
+  <p class="day-left" id="day-left"></p>
+
+  <nav class="vs-tabs" aria-label="Дни недели"><a href="#vs-1" data-day="1" style="--day:#e8a33d"><b>Пн</b><small>Радарная разведка</small></a><a href="#vs-2" data-day="2" style="--day:#6fbf73"><b>Вт</b><small>Строительство базы</small></a><a href="#vs-3" data-day="3" style="--day:#5aa9e6"><b>Ср</b><small>Научные исследования</small></a><a href="#vs-4" data-day="4" style="--day:#c084fc"><b>Чт</b><small>Тренировка героев</small></a><a href="#vs-5" data-day="5" style="--day:#f87171"><b>Пт</b><small>Полная военная подготовка</small></a><a href="#vs-6" data-day="6" style="--day:#f59e0b"><b>Сб</b><small>Нападение на врага</small></a><a href="#vs-7" data-day="7" style="--day:#9aa5ab"><b>Вс</b><small>Перерыв</small></a></nav>
 
   <div class="note">Участие: Мэрия 10+ и альянс от 20 человек. В следующий раунд проходят 32 сильнейших альянса.</div>
 
-  <div class="toc vs-tabs"><a href="#vs-1" data-day="1">Пн</a><a href="#vs-2" data-day="2">Вт</a><a href="#vs-3" data-day="3">Ср</a><a href="#vs-4" data-day="4">Чт</a><a href="#vs-5" data-day="5">Пт</a><a href="#vs-6" data-day="6">Сб</a><a href="#vs-7" data-day="7">Вс</a></div>
+  <details class="info">
+    <summary>🏆 Сундуки и награда за победу дня</summary>
+    <div>
+      <p><b>Личные сундуки дня (очки):</b> 38 000 · 145 000 · 550 000 · 650 000 · 1 020 000 · 2 280 000 · 2 630 000 · 3 620 000 · 7 190 000.</p>
+      <p><b>Награда за победу альянса в этапе:</b> научные данные ×400, ультраредкий универсальный фрагмент героя ×1, тактический ящик ×15, очищенный камень ×1000. На второй неделе ещё + универсальный фрагмент эксклюзивного оружия ×1.</p>
+      <p>Очки альянсу за победу: Пн — 1, Вт–Пт — по 2, Сб — 4. <b>Суббота решает!</b></p>
+    </div>
+  </details>
 
-  <p><b>Сундуки дня за личные очки:</b> 38 000 · 145 000 · 550 000 · 650 000 · 1 020 000 · 2 280 000 · 2 630 000 · 3 620 000 · 7 190 000.</p>
-  <p class="lead" style="font-size:14px">На второй неделе цикла добавляются новые задания — они помечены «неделя 2».</p>
+  <details class="info" id="gkm">
+    <summary>🔁 ГКМ — как совмещать с VS</summary>
+    <div>
+      <p>ГКМ идёт параллельно с VS и меняет фазы в течение дня. <b>Главный приём:</b> трать ресурс тогда, когда он даёт очки и в VS, и в текущей фазе ГКМ — одно действие засчитывается дважды.</p>
+      <div class="table-wrap"><table><tr><th>Фаза ГКМ / задание</th><th>Очки</th></tr><tr class="ph"><td colspan="2"><b>Улучшить героя</b></td></tr><tr><td>Нанять героя</td><td class="num">+400</td></tr><tr><td>2000 опыта героя</td><td class="num">+1</td></tr><tr><td>1 алмаз при покупке набора</td><td class="num">+30</td></tr><tr class="ph"><td colspan="2"><b>Строить базу</b></td></tr><tr><td>1 мин ускорения строительства</td><td class="num">+10</td></tr><tr><td>+1 силы за постройку</td><td class="num">+1</td></tr><tr><td>1 алмаз при покупке набора</td><td class="num">+30</td></tr><tr class="ph"><td colspan="2"><b>Подготовка солдат</b></td></tr><tr><td>1 мин ускорения тренировки</td><td class="num">+10</td></tr><tr><td>Солдат T1 / T2 / T3</td><td class="num">+5 / 6 / 7</td></tr><tr><td>Солдат T4 / T5 / T6</td><td class="num">+13 / 15 / 19</td></tr><tr><td>Солдат T7 / T8</td><td class="num">+22 / 25</td></tr><tr><td>Солдат T9 / T10</td><td class="num">+28 / 31</td></tr><tr><td>1 алмаз при покупке набора</td><td class="num">+30</td></tr><tr class="ph"><td colspan="2"><b>Исследование технологий</b></td></tr><tr><td>1 мин ускорения исследований</td><td class="num">+10</td></tr><tr><td>+1 мощи за исследование</td><td class="num">+1</td></tr><tr><td>1 алмаз при покупке набора</td><td class="num">+30</td></tr></table></div>
+      <p class="lead" style="font-size:14px">Есть ещё фаза «Улучшение бойца» — в неё тратим боевые чипы и выносливость (лучше всего в понедельник). Задания этой фазы допишем позже.</p>
+    </div>
+  </details>
 
-    <article class="vs-day" id="vs-1" data-day="1">
-      <p class="eyebrow">Пн · этап 1 из 6</p>
+    <article class="vs-day" id="vs-1" data-day="1" style="--day:#e8a33d">
+      <div class="day-head">
+        <span class="day-badge">Понедельник</span>
+        <span class="day-sub">этап 1 из 6 · за победу дня альянсу <b>1</b> очк.</span>
+      </div>
       <h2>Радарная разведка</h2>
       <h3>Что делаем</h3>
       <ol class="steps"><li>Выполняем накопленный радар (21 000 очков за задание).</li><li>Тратим выносливость и улучшаем истребитель: части бойца дают очки, но <b>коробки с запчастями не открываем</b> — их только в среду!</li><li>Собираем ресурсы с плиток (сбор радаром очков не даёт).</li><li><b>Опыт героев не тратим:</b> очков мало, оставляем на четверг.</li></ol>
-      <h3>Очки</h3>
-      <div class="table-wrap"><table><tr><th>Действие</th><th>Очки</th></tr><tr><td>Задание радара</td><td class="num">+10 500</td></tr><tr><td>1 часть бойца</td><td class="num">+2 600</td></tr><tr><td>1 выносливость</td><td class="num">+155</td></tr><tr><td>1 боевой чип бойца</td><td class="num">+4</td></tr><tr><td>Сбор 10 еды / 10 металла / 6 нефти</td><td class="num">+3</td></tr><tr><td>650 опыта героя</td><td class="num">+1</td></tr><tr><td>Сундук ведомого (неделя 2) — за продвинутый компонент</td><td class="num">+1 150</td></tr></table></div>
-      <p><b>Копим заранее:</b> Задания радара, части и чипы бойца, выносливость. Накануне вечером отправь отряды на сбор, чтобы он закончился уже после начала дня.</p>
+      <div class="gkm-tip"><b>🔁 Совмещаем с ГКМ</b><ul class="plain"><li>Боевые чипы и выносливость тратим, когда идёт ГКМ «Улучшение бойца» — очки капают сразу в двух событиях.</li><li>Задания радара, где нужна выносливость, тоже делаем во время ГКМ «Улучшение бойца».</li></ul></div>
+      <h3>Очки за действия</h3>
+      <div class="table-wrap"><table><tr><th>Действие</th><th>Очки</th></tr><tr><td>Задание радара</td><td class="num">+10 500</td></tr><tr><td>1 часть бойца</td><td class="num">+2 600</td></tr><tr><td>1 выносливость</td><td class="num">+155</td></tr><tr><td>1 алмаз при покупке набора</td><td class="num">+35</td></tr><tr><td>1 боевой чип бойца</td><td class="num">+4</td></tr><tr><td>Сбор 10 еды / 10 металла / 6 нефти (не радаром)</td><td class="num">+3</td></tr><tr><td>650 опыта героя</td><td class="num">+1</td></tr><tr class="w2"><td>Сундук ведомого → 1 продвинутый компонент <span class="tag">неделя 2</span></td><td class="num">+1 150</td></tr></table></div>
+      <p class="prep"><b>Копим заранее:</b> Задания радара, части и чипы бойца, выносливость. Вечером в воскресенье отправь отряды на сбор так, чтобы он закончился после 05:00 МСК.</p>
     </article>
-    <article class="vs-day" id="vs-2" data-day="2">
-      <p class="eyebrow">Вт · этап 2 из 6</p>
+    <article class="vs-day" id="vs-2" data-day="2" style="--day:#6fbf73">
+      <div class="day-head">
+        <span class="day-badge">Вторник</span>
+        <span class="day-sub">этап 2 из 6 · за победу дня альянсу <b>2</b> очк.</span>
+      </div>
       <h2>Строительство базы</h2>
       <h3>Что делаем</h3>
       <ol class="steps"><li>Отправляем UR-грузовик — самое жирное задание дня.</li><li>Проходим UR-спецоперации.</li><li>Нанимаем выживших.</li><li>Тратим ускорения строительства, улучшаем здания.</li></ol>
-      <h3>Очки</h3>
-      <div class="table-wrap"><table><tr><th>Действие</th><th>Очки</th></tr><tr><td>Отправить UR-грузовик</td><td class="num">+110 000</td></tr><tr><td>UR-спецоперация</td><td class="num">+72 000</td></tr><tr><td>Нанять выжившего</td><td class="num">+1 600</td></tr><tr><td>+10 силы за постройку</td><td class="num">+110</td></tr><tr><td>1 мин ускорения строительства</td><td class="num">+55</td></tr></table></div>
-      <p><b>Копим заранее:</b> UR-грузовик и UR-спецоперацию на этот день, билеты выживших, ускорения строительства.</p>
+      <div class="gkm-tip"><b>🔁 Совмещаем с ГКМ</b><ul class="plain"><li>Ускорения строительства тратим во время ГКМ «Строить базу» — там тоже дают очки за каждую минуту и за силу построек.</li></ul></div>
+      <h3>Очки за действия</h3>
+      <div class="table-wrap"><table><tr><th>Действие</th><th>Очки</th></tr><tr><td>Отправить UR-грузовик</td><td class="num">+110 000</td></tr><tr><td>UR-спецоперация</td><td class="num">+72 000</td></tr><tr><td>Нанять выжившего</td><td class="num">+1 600</td></tr><tr><td>+10 силы за постройку</td><td class="num">+110</td></tr><tr><td>1 мин ускорения строительства</td><td class="num">+55</td></tr><tr><td>1 алмаз при покупке набора</td><td class="num">+35</td></tr></table></div>
+      <p class="prep"><b>Копим заранее:</b> UR-грузовик и UR-спецоперацию на этот день, билеты выживших, ускорения строительства.</p>
     </article>
-    <article class="vs-day" id="vs-3" data-day="3">
-      <p class="eyebrow">Ср · этап 3 из 6</p>
+    <article class="vs-day" id="vs-3" data-day="3" style="--day:#5aa9e6">
+      <div class="day-head">
+        <span class="day-badge">Среда</span>
+        <span class="day-sub">этап 3 из 6 · за победу дня альянсу <b>2</b> очк.</span>
+      </div>
       <h2>Научные исследования</h2>
       <h3>Что делаем</h3>
-      <ol class="steps"><li>Выполняем задания радара.</li><li>Тратим научные данные.</li><li>Запускаем исследования и тратим ускорения исследований.</li></ol>
-      <h3>Очки</h3>
-      <div class="table-wrap"><table><tr><th>Действие</th><th>Очки</th></tr><tr><td>Задание радара</td><td class="num">+10 500</td></tr><tr><td>1 научные данные</td><td class="num">+320</td></tr><tr><td>+10 мощи за исследование</td><td class="num">+110</td></tr><tr><td>1 мин ускорения исследований</td><td class="num">+55</td></tr></table></div>
-      <p><b>Копим заранее:</b> Научные данные, ускорения исследований, задания радара.</p>
+      <ol class="steps"><li>Выполняем задания радара.</li><li>Тратим научные данные.</li><li>Открываем коробки с запчастями бойца (копили с понедельника).</li><li>Запускаем исследования и тратим ускорения исследований.</li></ol>
+      <div class="gkm-tip"><b>🔁 Совмещаем с ГКМ</b><ul class="plain"><li>Ускорения исследований тратим во время ГКМ «Исследование технологий».</li></ul></div>
+      <h3>Очки за действия</h3>
+      <div class="table-wrap"><table><tr><th>Действие</th><th>Очки</th></tr><tr><td>Задание радара</td><td class="num">+10 500</td></tr><tr><td>1 научные данные</td><td class="num">+320</td></tr><tr><td>+10 мощи за исследование</td><td class="num">+110</td></tr><tr><td>1 мин ускорения исследований</td><td class="num">+55</td></tr><tr><td>1 алмаз при покупке набора</td><td class="num">+35</td></tr></table></div>
+      <p class="prep"><b>Копим заранее:</b> Научные данные, ускорения исследований, задания радара.</p>
     </article>
-    <article class="vs-day" id="vs-4" data-day="4">
-      <p class="eyebrow">Чт · этап 4 из 6</p>
+    <article class="vs-day" id="vs-4" data-day="4" style="--day:#c084fc">
+      <div class="day-head">
+        <span class="day-badge">Четверг</span>
+        <span class="day-sub">этап 4 из 6 · за победу дня альянсу <b>2</b> очк.</span>
+      </div>
       <h2>Тренировка героев</h2>
       <h3>Что делаем</h3>
-      <ol class="steps"><li>Тратим фрагменты героев — ультраредкие дают больше всего.</li><li>Нанимаем героев.</li><li>Тратим книги навыков и опыт героя.</li></ol>
-      <h3>Очки</h3>
-      <div class="table-wrap"><table><tr><th>Действие</th><th>Очки</th></tr><tr><td>1 ультраредкий фрагмент героя</td><td class="num">+10 500</td></tr><tr><td>1 невероятно редкий фрагмент</td><td class="num">+3 600</td></tr><tr><td>Нанять героя</td><td class="num">+1 600</td></tr><tr><td>1 суперредкий фрагмент</td><td class="num">+1 050</td></tr><tr><td>1 книга навыков</td><td class="num">+12</td></tr><tr><td>650 опыта героя</td><td class="num">+1</td></tr><tr><td>Фрагмент эксклюзивного оружия (неделя 2)</td><td class="num">+10 500</td></tr></table></div>
-      <p><b>Копим заранее:</b> Фрагменты героев всех редкостей, билеты найма героев, книги навыков.</p>
+      <ol class="steps"><li>Тратим фрагменты героев — ультраредкие дают больше всего.</li><li>Нанимаем героев.</li><li>Тратим книги навыков и опыт героя (копили с понедельника).</li></ol>
+      <div class="gkm-tip"><b>🔁 Совмещаем с ГКМ</b><ul class="plain"><li>Найм героев и опыт героев тратим во время ГКМ «Улучшить героя» — там за найм 400 очков и очки за опыт.</li></ul></div>
+      <h3>Очки за действия</h3>
+      <div class="table-wrap"><table><tr><th>Действие</th><th>Очки</th></tr><tr><td>1 ультраредкий фрагмент героя</td><td class="num">+10 500</td></tr><tr><td>1 невероятно редкий фрагмент</td><td class="num">+3 600</td></tr><tr><td>Нанять героя</td><td class="num">+1 600</td></tr><tr><td>1 суперредкий фрагмент</td><td class="num">+1 050</td></tr><tr><td>1 алмаз при покупке набора</td><td class="num">+35</td></tr><tr><td>1 книга навыков</td><td class="num">+12</td></tr><tr><td>650 опыта героя</td><td class="num">+1</td></tr><tr class="w2"><td>1 фрагмент эксклюзивного оружия <span class="tag">неделя 2</span></td><td class="num">+10 500</td></tr></table></div>
+      <p class="prep"><b>Копим заранее:</b> Фрагменты героев всех редкостей, билеты найма героев, книги навыков, опыт героев.</p>
     </article>
-    <article class="vs-day" id="vs-5" data-day="5">
-      <p class="eyebrow">Пт · этап 5 из 6</p>
+    <article class="vs-day" id="vs-5" data-day="5" style="--day:#f87171">
+      <div class="day-head">
+        <span class="day-badge">Пятница</span>
+        <span class="day-sub">этап 5 из 6 · за победу дня альянсу <b>2</b> очк.</span>
+      </div>
       <h2>Полная военная подготовка</h2>
       <h3>Что делаем</h3>
       <ol class="steps"><li>Выполняем задания радара.</li><li>Тратим все ускорения: строительство, исследования, тренировка.</li><li>Тренируем солдат.</li></ol>
-      <h3>Очки</h3>
-      <div class="table-wrap"><table><tr><th>Действие</th><th>Очки</th></tr><tr><td>Задание радара</td><td class="num">+10 500</td></tr><tr><td>+10 силы за постройку</td><td class="num">+110</td></tr><tr><td>+10 мощи за исследование</td><td class="num">+110</td></tr><tr><td>1 мин любого ускорения (стройка / наука / тренировка)</td><td class="num">+55</td></tr></table></div>
-      <p><b>Копим заранее:</b> Ускорения всех видов — это день, когда их выгоднее всего тратить.</p>
+      <div class="gkm-tip"><b>🔁 Совмещаем с ГКМ</b><ul class="plain"><li>Каждое ускорение — в свою фазу ГКМ: тренировка → «Подготовка солдат», стройка → «Строить базу», наука → «Исследование технологий».</li></ul></div>
+      <h3>Очки за действия</h3>
+      <div class="table-wrap"><table><tr><th>Действие</th><th>Очки</th></tr><tr><td>Задание радара</td><td class="num">+10 500</td></tr><tr><td>+10 силы за постройку</td><td class="num">+110</td></tr><tr><td>+10 мощи за исследование</td><td class="num">+110</td></tr><tr><td>1 мин любого ускорения (стройка / наука / тренировка)</td><td class="num">+55</td></tr><tr><td>1 алмаз при покупке набора</td><td class="num">+35</td></tr></table></div>
+      <p class="prep"><b>Копим заранее:</b> Ускорения всех видов — это день, когда их выгоднее всего тратить.</p>
     </article>
-    <article class="vs-day" id="vs-6" data-day="6">
-      <p class="eyebrow">Сб · этап 6 из 6</p>
+    <article class="vs-day" id="vs-6" data-day="6" style="--day:#f59e0b">
+      <div class="day-head">
+        <span class="day-badge">Суббота</span>
+        <span class="day-sub">этап 6 из 6 · за победу дня альянсу <b>4</b> очк.</span>
+      </div>
       <h2>Нападение на врага</h2>
       <h3>Что делаем</h3>
       <ol class="steps"><li>Отправляем UR-грузовик и проходим UR-спецоперации.</li><li>Тратим ускорения, в том числе ускорение лечения.</li><li>Параллельно идёт «Безумие экспедиции» — будь готов к атакам.</li></ol>
-      <h3>Очки</h3>
-      <div class="table-wrap"><table><tr><th>Действие</th><th>Очки</th></tr><tr><td>Отправить UR-грузовик</td><td class="num">+110 000</td></tr><tr><td>UR-спецоперация</td><td class="num">+72 000</td></tr><tr><td>1 мин ускорения (стройка / наука / тренировка / лечение)</td><td class="num">+55</td></tr></table></div>
-      <p><b>Копим заранее:</b> UR-грузовик, UR-спецоперацию и ускорения лечения.</p>
+      <div class="gkm-tip"><b>🔁 Совмещаем с ГКМ</b><ul class="plain"><li>Ускорения тренировки, стройки и науки — опять в подходящую фазу ГКМ.</li></ul></div>
+      <h3>Очки за действия</h3>
+      <div class="table-wrap"><table><tr><th>Действие</th><th>Очки</th></tr><tr><td>Отправить UR-грузовик</td><td class="num">+110 000</td></tr><tr><td>UR-спецоперация</td><td class="num">+72 000</td></tr><tr><td>1 мин ускорения (стройка / наука / тренировка / лечение)</td><td class="num">+55</td></tr><tr><td>1 алмаз при покупке набора</td><td class="num">+35</td></tr></table></div>
+      <p class="prep"><b>Копим заранее:</b> UR-грузовик, UR-спецоперацию и ускорения лечения.</p>
     </article>
-    <article class="vs-day" id="vs-7" data-day="7">
-      <p class="eyebrow">Вс · перерыв</p>
+    <article class="vs-day" id="vs-7" data-day="7" style="--day:#9aa5ab">
+      <div class="day-head"><span class="day-badge">Воскресенье</span><span class="day-sub">перерыв, VS не идёт</span></div>
       <h2>Отдых и подготовка</h2>
       <ol class="steps"><li>Зализываем раны после субботы.</li><li>Копим радар на понедельник, а стройку — на вторник.</li><li>Перед сном отправляем все отряды на плитки. Смотри при отправке, чтобы сбор закончился <b>после 05:00 МСК</b> — тогда он засчитается на понедельник!</li></ol>
     </article>

@@ -84,7 +84,7 @@
   }
 
   function show(data) {
-    var day = new Date(Date.now() - 2 * 3600 * 1000).getUTCDay() || 7; // игровое время UTC-2
+    var day = new Date(Date.now() - 2 * 3600 * 1000).getUTCDay() || 7; // день сервера начинается в 05:00 МСК (= 02:00 UTC)
     var html = '', today = null;
     data.rows.forEach(function (r) {
       if (r.d === day) today = r;
@@ -125,6 +125,11 @@
   var saved = null;
   try { saved = localStorage.getItem(KEY); } catch (e) {}
   if (saved) tryLogin(saved, true);
+  // Смена дня в 05:00 МСК — перерисовываем «Сегодня машинист»
+  var D = 86400000, next = Math.floor((Date.now() - 7200000) / D + 1) * D + 7200000;
+  function check() { if (Date.now() >= next) location.reload(); }
+  setInterval(check, 30000);
+  document.addEventListener('visibilitychange', function () { if (!document.hidden) check(); });
 })();
 </script>
 </body>

@@ -147,3 +147,26 @@ td.num { text-align: right; white-space: nowrap; font-variant-numeric: tabular-n
 .video-wrap iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
 .video-wrap.vertical { max-width: 340px; aspect-ratio: 9 / 16; }
 details ul.plain ul.plain { margin-top: 4px; }
+
+/* VS: выделение дней */
+.vs-tabs { position: sticky; top: 52px; z-index: 5; display: grid; grid-template-columns: repeat(7, minmax(0,1fr)); gap: 6px; background: var(--bg); padding: 8px 0; margin: 10px 0; }
+.vs-tabs a { display: flex; flex-direction: column; align-items: center; gap: 2px; text-decoration: none; color: var(--text); background: var(--panel); border: 1px solid var(--line); border-top: 4px solid var(--day); border-radius: 8px; padding: 6px 2px; min-width: 0; }
+.vs-tabs a b { font-size: 16px; }
+.vs-tabs a small { font-size: 10px; color: var(--muted); text-align: center; line-height: 1.2; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 100%; }
+.vs-tabs a.today { background: var(--day); color: #111; border-color: var(--day); }
+.vs-tabs a.today small { color: #111; }
+.vs-day { border-left: 6px solid var(--day); scroll-margin-top: 140px; }
+.vs-day.today { border-color: var(--day); box-shadow: 0 0 0 2px var(--day); }
+.day-head { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; }
+.day-badge { background: var(--day); color: #111; font-weight: 800; text-transform: uppercase; letter-spacing: .05em; padding: 4px 12px; border-radius: 6px; font-size: 15px; }
+.vs-day.today .day-badge::after { content: " · сегодня"; }
+.day-sub { color: var(--muted); font-size: 14px; }
+.gkm-tip { background: var(--panel-2); border-radius: 8px; padding: 8px 12px; margin: 12px 0; }
+.gkm-tip ul { margin: 4px 0 0; }
+tr.ph td { background: var(--panel-2); }
+tr.w2 td { color: var(--accent-2); }
+details.info { background: var(--panel); }
+@media (max-width: 600px) { .vs-tabs { top: 88px; } .vs-tabs a small { display: none; } }
+.day-left { margin: 2px 0 0; color: var(--muted); font-size: 13px; }
+.driver { margin: 12px 0 0; color: var(--muted); font-size: 14px; }
+.driver b { color: var(--accent); }
