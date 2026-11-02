@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Расписание поезда — АльфА</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="train.css">
+</head>
+<body>
+<header>
+  <div class="bar">
+    <a class="logo" href="index.html">[ALP] <span>АльфА</span></a>
+    <nav>
+      <a href="index.html">Главная</a>
+      <a href="rules.html">Правила</a>
+      <a href="activities.html">События</a>
+      <a href="vs.html">VS</a>
+      <a href="guides.html">Гайды</a>
+      <a href="promo.html">Промокоды</a>
+      <a class="active" href="train.html" aria-current="page">🚂 Поезд</a>
+      <a href="leaders.html">🔒 Руководство</a>
+    </nav>
+  </div>
+</header>
+<main class="train-page">
+  <h1>🚂 Расписание поезда</h1>
+  <p class="lead">20 пассажиров каждый день. Р3 и Р4, кроме машинистов.</p>
+  <div class="train-meta"><span class="tag">Вт → Пн</span><span class="tag" id="train-total">Загружаем состав…</span><span class="tag" id="train-updated"></span></div>
+  <nav class="toc" aria-label="Расписание поезда"><a href="#train-today">Сегодня</a><a href="#train-week">Неделя</a></nav>
+  <div class="card train-search">
+    <label for="train-query">Найти свои поездки</label>
+    <input id="train-query" type="search" placeholder="Введите ник игрока" autocomplete="off" maxlength="80">
+    <p id="train-result" role="status" aria-live="polite">Здесь появятся дни ваших поездок.</p>
+  </div>
+  <section class="today-card" id="train-today" aria-labelledby="train-today-title">
+    <p class="eyebrow" id="train-today-date">Сегодня</p>
+    <h2 id="train-today-title">Состав поезда</h2>
+    <div id="train-today-body"><p>Загружаем расписание…</p></div>
+  </section>
+  <h2 id="train-week">Расписание недели</h2>
+  <p class="lead" id="train-week-dates"></p>
+  <div id="train-days"></div>
+  <noscript><p class="note">Для просмотра расписания включите JavaScript.</p></noscript>
+  <p id="train-error" class="note" role="alert" hidden></p>
+  <details><summary>Как распределяются места</summary><div>
+    <p>В каждом составе 20 разных пассажиров. Каждый день берём следующих по общей очереди; после конца списка возвращаемся к началу. Машинисты в пассажирскую очередь не входят.</p>
+    <p id="train-fairness"></p>
+    <p>Неделя начинается во вторник. Игровой день меняется в 05:00 МСК. Даты переключаются автоматически; список участников пересматриваем каждую неделю.</p>
+  </div></details>
+</main>
+<footer>Фанатский сайт альянса [ALP] АльфА. Не связан с разработчиками Z:Route. · <a href="leaders.html">Руководство</a></footer>
+<script src="train.js"></script>
+</body>
+</html>
