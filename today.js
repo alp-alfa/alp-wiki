@@ -28,8 +28,20 @@
   var tpl = document.querySelector('template[data-plan="' + day + '"]');
   var title = document.getElementById('today-title');
   var plan = document.getElementById('today-plan');
+  // Разовая Пандора: 7 ноября 2026, 01:00–01:30 МСК, игровой день пятницы.
+  var pandoraEnd = Date.parse('2026-11-07T01:30:00+03:00');
+  document.querySelectorAll('[data-event-end]').forEach(function (el) {
+    if (Date.now() >= Date.parse(el.getAttribute('data-event-end'))) el.hidden = true;
+  });
   if (title) title.textContent = (tpl && tpl.getAttribute('data-title')) || names[day];
   if (plan && tpl) plan.appendChild(tpl.content.cloneNode(true));
+  if (plan && Date.now() >= Date.parse('2026-11-06T05:00:00+03:00') && Date.now() < pandoraEnd) {
+    var pandoraNote = document.createElement('p');
+    pandoraNote.className = 'note';
+    pandoraNote.setAttribute('data-event-end', '2026-11-07T01:30:00+03:00');
+    pandoraNote.textContent = '🏟️ Пандора — 7 ноября, 01:00–01:30 МСК (ночь с пятницы на субботу).';
+    plan.appendChild(pandoraNote);
+  }
   var drv = document.getElementById('today-driver');
   if (drv && tpl && tpl.getAttribute('data-driver')) {
     drv.innerHTML = '🚂 Машинист сегодня: <b></b>';
@@ -42,6 +54,9 @@
   var nextReset = Math.floor((Date.now() - SHIFT) / DAY + 1) * DAY + SHIFT;
   var left = document.getElementById('day-left');
   function tick() {
+    document.querySelectorAll('[data-event-end]').forEach(function (el) {
+      if (Date.now() >= Date.parse(el.getAttribute('data-event-end'))) el.hidden = true;
+    });
     var ms = nextReset - Date.now();
     if (ms <= 0) { location.reload(); return; }
     if (left) {
