@@ -43,9 +43,13 @@
     plan.appendChild(pandoraNote);
   }
   var drv = document.getElementById('today-driver');
-  if (drv && tpl && tpl.getAttribute('data-driver')) {
+  // Очередь из восьми машинистов: 2 ноября 2026 — AlenaMiy, 3 ноября — Man'yak.
+  var drivers = ['AlenaMiy (R5)', "Man'yak", 'RumanticK', 'Nemmi', 'Балдеж', 'Золотой', 'Психопат', 'SΔURON'];
+  var driverIndex = Math.floor((now.getTime() - Date.UTC(2026, 10, 2)) / 86400000);
+  var currentDriver = driverIndex >= 0 && driverIndex < 30 ? drivers[driverIndex % drivers.length] : 'расписание уточняется';
+  if (drv) {
     drv.innerHTML = '🚂 Машинист сегодня: <b></b>';
-    drv.querySelector('b').textContent = tpl.getAttribute('data-driver');
+    drv.querySelector('b').textContent = currentDriver;
     drv.hidden = false;
   }
 
