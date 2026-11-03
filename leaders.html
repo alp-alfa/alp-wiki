@@ -18,6 +18,9 @@
     .today-box { font-size: 18px; margin: 4px 0 14px; }
     .today-box b { color: var(--accent); }
     .link-btn { background: none; border: 0; color: var(--muted); text-decoration: underline; cursor: pointer; font: inherit; padding: 0; }
+    .layout-actions { display: flex; gap: 12px; flex-wrap: wrap; margin: 12px 0; }
+    #alliance-layout { display: block; width: 100%; height: auto; border: 1px solid var(--line); }
+    #alliance-layout[hidden], .layout-actions[hidden] { display: none; }
   </style>
 </head>
 <body>
@@ -41,7 +44,7 @@
   <h1>Для руководства</h1>
 
   <form id="login" class="login" autocomplete="off">
-    <p class="lead" style="margin:0">Расписание машинистов. Вход только для лидера и Р4.</p>
+    <p class="lead" style="margin:0">Расписание машинистов и схема расстановки баз. Вход только для лидера и Р4.</p>
     <label for="user">Логин</label>
     <input id="user" type="text" autocapitalize="off" spellcheck="false" required>
     <label for="pw">Пароль</label>
@@ -51,6 +54,7 @@
   </form>
 
   <section id="content" hidden>
+    <h2>Расписание машинистов</h2>
     <p class="today-box" id="today-box"></p>
     <div class="table-wrap">
       <table>
@@ -59,6 +63,18 @@
       </table>
     </div>
     <p class="lead" id="note" style="font-size:14px"></p>
+    <section aria-labelledby="layout-title">
+      <h2 id="layout-title">🗺️ Расстановка баз альянса</h2>
+      <p>Черновик от 3 ноября 2026: <b>90 баз с никами</b>. Лидер и Р4 — в центре, Р3 — вокруг ядра, Р2 — по внешнему поясу, Р1 — на нижнем краю.</p>
+      <p class="note">На присланных скриншотах видны 42 из 48 игроков Р3. Шестерых добавим после уточнения списка. Буква и номер ряда на схеме обозначают место, а не координаты сервера.</p>
+      <p id="layout-status" class="lead" role="status" aria-live="polite"></p>
+      <div class="layout-actions" id="layout-actions" hidden>
+        <a class="btn" id="layout-open" target="_blank" rel="noopener">Открыть в полном размере</a>
+        <a class="btn" id="layout-download" download="ALP-rasstanovka-03-11-2026.jpg">Скачать схему JPG</a>
+      </div>
+      <img id="alliance-layout" alt="Схема расстановки 90 баз альянса АльфА с никами участников и обозначениями рангов" width="3000" height="3340" hidden>
+    </section>
+    <p></p>
     <button class="link-btn" id="logout" type="button">Выйти</button>
   </section>
 </main>
@@ -74,6 +90,45 @@
   var vault = JSON.parse(document.getElementById('vault').textContent);
   var b64 = function (s) { return Uint8Array.from(atob(s), function (c) { return c.charCodeAt(0); }); };
   var esc = function (s) { var d = document.createElement('div'); d.textContent = s; return d.innerHTML; };
+  var layoutUrl = null, layoutVersion = 0;
+  function clearLayout() {
+    layoutVersion++;
+    if (layoutUrl) URL.revokeObjectURL(layoutUrl);
+    layoutUrl = null;
+    var image = document.getElementById('alliance-layout');
+    image.hidden = true; image.removeAttribute('src');
+    document.getElementById('layout-actions').hidden = true;
+    document.getElementById('layout-open').removeAttribute('href');
+    document.getElementById('layout-download').removeAttribute('href');
+    document.getElementById('layout-status').textContent = '';
+  }
+  async function loadLayout(pw) {
+    clearLayout();
+    var version = layoutVersion;
+    var status = document.getElementById('layout-status');
+    status.textContent = 'Загружаем схему расстановки…';
+    try {
+      var response = await fetch('alliance-layout.enc', { cache: 'no-store' });
+      if (!response.ok) throw new Error('load');
+      var bytes = new Uint8Array(await response.arrayBuffer());
+      if (new TextDecoder().decode(bytes.slice(0, 4)) !== 'ALP1') throw new Error('format');
+      var base = await crypto.subtle.importKey('raw', new TextEncoder().encode(pw), 'PBKDF2', false, ['deriveKey']);
+      var key = await crypto.subtle.deriveKey(
+        { name: 'PBKDF2', salt: bytes.slice(4, 20), iterations: 250000, hash: 'SHA-256' },
+        base, { name: 'AES-GCM', length: 256 }, false, ['decrypt']);
+      var plain = await crypto.subtle.decrypt({ name: 'AES-GCM', iv: bytes.slice(20, 32) }, key, bytes.slice(32));
+      if (version !== layoutVersion || document.getElementById('content').hidden) return;
+      layoutUrl = URL.createObjectURL(new Blob([plain], { type: 'image/jpeg' }));
+      var image = document.getElementById('alliance-layout');
+      image.src = layoutUrl; image.hidden = false;
+      document.getElementById('layout-open').href = layoutUrl;
+      document.getElementById('layout-download').href = layoutUrl;
+      document.getElementById('layout-actions').hidden = false;
+      status.textContent = 'Полный размер: 3000 × 3340. Для увеличения открой схему отдельно.';
+    } catch (e) {
+      if (version === layoutVersion) status.textContent = 'Не удалось загрузить схему. Обнови страницу или повтори вход.';
+    }
+  }
 
   async function decrypt(pw) {
     var base = await crypto.subtle.importKey('raw', new TextEncoder().encode(pw), 'PBKDF2', false, ['deriveKey']);
@@ -105,6 +160,7 @@
       var data = await decrypt(pw);
       try { localStorage.setItem(KEY, pw); } catch (e) {}
       show(data);
+      loadLayout(pw);
     } catch (e) {
       if (!silent) document.getElementById('err').textContent = 'Неверный логин или пароль.';
     }
@@ -116,6 +172,7 @@
     tryLogin(document.getElementById("user").value.trim().toLowerCase() + ':' + document.getElementById('pw').value, false);
   });
   document.getElementById('logout').addEventListener('click', function () {
+    clearLayout();
     try { localStorage.removeItem(KEY); } catch (e) {}
     document.getElementById('rows').innerHTML = '';
     document.getElementById('pw').value = '';
