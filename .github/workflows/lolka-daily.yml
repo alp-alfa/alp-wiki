@@ -1,0 +1,28 @@
+name: События дня в Lolka
+
+on:
+  schedule:
+    # 02:10 UTC = 05:10 MSK, after the game day resets.
+    - cron: '10 2 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: lolka-daily
+  cancel-in-progress: false
+
+jobs:
+  announce:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Отправить события с сайта
+        run: node lolka-events.mjs
+        env:
+          LOLKA_WEBHOOK_URL: ${{ secrets.LOLKA_WEBHOOK_URL }}
