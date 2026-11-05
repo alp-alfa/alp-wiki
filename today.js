@@ -28,11 +28,6 @@
   var tpl = document.querySelector('template[data-plan="' + day + '"]');
   var title = document.getElementById('today-title');
   var plan = document.getElementById('today-plan');
-  // Разовая Пандора: 7 ноября 2026, 01:00–01:30 МСК, игровой день пятницы.
-  var pandoraEnd = Date.parse('2026-11-07T01:30:00+03:00');
-  document.querySelectorAll('[data-event-end]').forEach(function (el) {
-    if (Date.now() >= Date.parse(el.getAttribute('data-event-end'))) el.hidden = true;
-  });
   if (title) title.textContent = (tpl && tpl.getAttribute('data-title')) || names[day];
   if (plan && tpl) plan.appendChild(tpl.content.cloneNode(true));
   if (plan && Date.now() >= Date.parse('2026-11-06T05:00:00+03:00') && Date.now() < pandoraEnd) {
@@ -44,7 +39,7 @@
   }
   var drv = document.getElementById('today-driver');
   // Очередь из восьми машинистов: 2 ноября 2026 — AlenaMiy, 3 ноября — Man'yak.
-  var drivers = ['AlenaMiy (R5)', "Man'yak", 'RumanticK', 'Nemmi', 'Балдеж', 'Золотой', 'Психопат', 'SΔURON'];
+  var drivers = ['AlenaMiy (R5)', "Man'yak", 'Nemmi', 'RumanticK', 'Балдеж', 'Золотой', 'Психопат', 'SΔURON'];
   var driverIndex = Math.floor((now.getTime() - Date.UTC(2026, 10, 2)) / 86400000);
   var currentDriver = driverIndex >= 0 && driverIndex < 30 ? drivers[driverIndex % drivers.length] : 'расписание уточняется';
   if (drv) {

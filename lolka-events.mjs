@@ -18,6 +18,7 @@ export function buildMessage(html, todayJs, now = new Date()) {
   const label = date.toISOString().slice(0, 10).split('-').reverse().join('.');
   const lines = [`📅 ${names[day]}, ${label} · [ALP] АльфА`, '', plain(title), ''];
   for (const m of template[2].matchAll(/<li\b[^>]*>([\s\S]*?)<\/li>/g)) lines.push(`• ${plain(m[1])}`);
+  for (const m of template[2].matchAll(/<p class="note">([\s\S]*?)<\/p>/g)) lines.push('', plain(m[1]));
   const prep = template[2].match(/<p class="prep">([\s\S]*?)<\/p>/);
   if (prep) lines.push('', plain(prep[1]));
 
