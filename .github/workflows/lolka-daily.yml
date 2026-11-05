@@ -2,8 +2,8 @@ name: События дня в Lolka
 
 on:
   schedule:
-    # 02:10 UTC = 05:10 MSK, after the game day resets.
-    - cron: '10 2 * * *'
+    # 02:00 UTC = 05:00 MSK, the game day reset.
+    - cron: '0 2 * * *'
   workflow_dispatch:
 
 permissions:
