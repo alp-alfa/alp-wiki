@@ -1,6 +1,6 @@
 {
   "startDate": "2026-11-03",
-  "updatedDate": "2026-11-02",
+  "updatedDate": "2026-11-09",
   "seats": 20,
   "passengers": [
     "Ibra500",
@@ -35,9 +35,7 @@
     "kENT",
     "Gespenkras",
     "TaylorEm",
-    "кротище",
-    "Nadya01",
-    "SinoKG"
+    "кротище"
   ],
   "excludedDrivers": [
     "Балдеж",
