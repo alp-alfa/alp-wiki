@@ -59,6 +59,23 @@
     if (today) {
       document.getElementById('train-today-title').textContent = today.name + ' · ' + data.seats + ' пассажиров';
       todayBody.appendChild(createTrain(today, ''));
+      GameCopy.bind('copy-train', function () {
+        var driver = document.querySelector('#today-driver b');
+        var blocks = [
+          '<style title><#FF0000>🚂 РАСПИСАНИЕ НА ПОЕЗД ‼️</color></style>',
+          '📅 ' + format(today.date)
+        ];
+        if (driver && driver.textContent) blocks.push('🚂 Машинист: ' + driver.textContent);
+        blocks.push(
+          '⚠️ Садитесь только в свой вагон!',
+          '🎟️ Каждый пассажир обязательно сдаёт 3 билета.',
+          '📋 Кого сегодня нет в списке, поедут в другие дни. Расписание: https://alp-alfa.github.io/alp-wiki/train.html'
+        );
+        today.wagons.forEach(function (players, index) {
+          blocks.push('🚃 ВАГОН №' + (index + 1) + '\n' + players.join(', ') + '.');
+        });
+        return blocks.join('\n⠀\n');
+      });
     } else {
       document.getElementById('train-today-title').textContent = 'Начинаем во вторник, ' + format(start);
       var message = document.createElement('p'); message.textContent = 'Первый состав уже в расписании ниже.'; todayBody.appendChild(message);
