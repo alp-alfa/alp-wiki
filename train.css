@@ -16,3 +16,14 @@
 .train-day summary small { margin-left:auto; color:var(--muted); font-weight:400; }
 .train-page [id] { scroll-margin-top:150px; }
 @media(max-width:600px) { .train-list { columns:1; } .train-day summary small { margin-left:0; width:100%; padding-left:24px; } }
+
+.train-carriages { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:18px; padding:20px 0 26px; }
+.train-engine { border-left:4px solid var(--accent); padding:10px 14px; background:rgba(232,163,61,.08); border-radius:8px; }
+.train-carriage { position:relative; background:var(--bg); border:2px solid var(--accent); border-radius:12px; padding:14px 10px 22px; min-width:0; }
+.train-carriage::after { content:''; position:absolute; height:14px; left:15%; right:15%; bottom:-9px; border-left:14px solid var(--muted); border-right:14px solid var(--muted); }
+.train-carriage h3 { margin:0 0 10px; color:var(--accent); font-size:18px; }
+.train-carriage .train-list { columns:1; padding-left:25px; margin:0; font-size:14px; }
+.train-carriage .train-list li { padding:7px 2px; }
+.train-carriage small { color:var(--muted); }
+@media(max-width:950px) { .train-carriages { grid-template-columns:repeat(2,minmax(0,1fr)); gap:24px 14px; } }
+@media(max-width:430px) { .train-carriages { grid-template-columns:1fr; } }

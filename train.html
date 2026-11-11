@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Расписание поезда — АльфА</title>
   <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="train.css">
+  <link rel="stylesheet" href="train.css?v=20261110">
 </head>
 <body>
 <header>
@@ -25,7 +25,7 @@
 </header>
 <main class="train-page">
   <h1>🚂 Расписание поезда</h1>
-  <p class="lead">20 пассажиров каждый день. Р3 и Р4, кроме машинистов.</p>
+  <p class="lead">Четыре вагона по пять пассажиров. Общая очередь для Р3, Р2 и Р1. Р4 и Р5 — машинисты.</p>
   <div class="train-meta"><span class="tag">Вт → Пн</span><span class="tag" id="train-total">Загружаем состав…</span><span class="tag" id="train-updated"></span></div>
   <nav class="toc" aria-label="Расписание поезда"><a href="#train-today">Сегодня</a><a href="#train-week">Неделя</a></nav>
   <div class="card train-search">
@@ -44,12 +44,14 @@
   <noscript><p class="note">Для просмотра расписания включите JavaScript.</p></noscript>
   <p id="train-error" class="note" role="alert" hidden></p>
   <details><summary>Как распределяются места</summary><div>
-    <p>В каждом составе 20 разных пассажиров. Каждый день берём следующих по общей очереди; после конца списка возвращаемся к началу. Машинисты в пассажирскую очередь не входят.</p>
+    <p>В каждом составе 20 разных пассажиров: по 5 в каждом из четырёх вагонов. Вагон №1 — ближайший к локомотиву. Садитесь только в указанный для вас вагон и день. Каждый день берём следующих по общей очереди; после конца списка возвращаемся к началу. Р4 и Р5 в пассажирскую очередь не входят.</p>
+    <p>При следующих поездках вагоны меняются: распределение учитывает, сколько раз каждый уже ездил в каждом вагоне. Очередь не сбрасывается с началом недели.</p>
     <p id="train-fairness"></p>
     <p>Неделя начинается во вторник. Игровой день меняется в 05:00 МСК. Даты переключаются автоматически; список участников пересматриваем каждую неделю.</p>
   </div></details>
 </main>
 <footer>Фанатский сайт альянса [ALP] АльфА. Не связан с разработчиками Z:Route. · <a href="leaders.html">Руководство</a></footer>
-<script src="train.js"></script>
+<script src="train-wagons.js?v=20261110"></script>
+<script src="train.js?v=20261110"></script>
 </body>
 </html>
