@@ -30,13 +30,6 @@
   var plan = document.getElementById('today-plan');
   if (title) title.textContent = (tpl && tpl.getAttribute('data-title')) || names[day];
   if (plan && tpl) plan.appendChild(tpl.content.cloneNode(true));
-  if (plan && Date.now() >= Date.parse('2026-11-06T05:00:00+03:00') && Date.now() < pandoraEnd) {
-    var pandoraNote = document.createElement('p');
-    pandoraNote.className = 'note';
-    pandoraNote.setAttribute('data-event-end', '2026-11-07T01:30:00+03:00');
-    pandoraNote.textContent = '🏟️ Пандора — 7 ноября, 01:00–01:30 МСК (ночь с пятницы на субботу).';
-    plan.appendChild(pandoraNote);
-  }
   var drv = document.getElementById('today-driver');
   // Очередь на 30 дней с 9 ноября 2026: RumanticK.
   var drivers = ["RumanticK","Золотой","Психопат","OLLi","AlenaMiy (R5)","Man'yak","Nemmi","Балдеж"];
