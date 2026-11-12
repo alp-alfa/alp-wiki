@@ -34,7 +34,8 @@
   // Очередь на 30 дней с 9 ноября 2026: RumanticK.
   var drivers = ["RumanticK","Золотой","Психопат","OLLi","AlenaMiy (R5)","Man'yak","Nemmi","Балдеж"];
   var driverIndex = Math.floor((now.getTime() - Date.UTC(2026, 10, 9)) / 86400000);
-  var currentDriver = driverIndex >= 0 && driverIndex < 30 ? drivers[driverIndex % drivers.length] : 'расписание уточняется';
+  var driverOverrides = {"2026-11-12":"AlenaMiy (R5)","2026-11-13":"OLLi"};
+  var currentDriver = driverOverrides[now.toISOString().slice(0, 10)] || ( driverIndex >= 0 && driverIndex < 30 ? drivers[driverIndex % drivers.length] : 'расписание уточняется');
   if (drv) {
     drv.innerHTML = '🚂 Машинист сегодня: <b></b>';
     drv.querySelector('b').textContent = currentDriver;

@@ -34,7 +34,9 @@ export function buildMessage(html, todayJs, now = new Date()) {
   if (!start || !drivers.length) throw new Error('Не удалось прочитать расписание машинистов');
   const index = Math.floor((date - Date.UTC(Number(start[1]), Number(start[2]), Number(start[3]))) / 86400000);
   const duration = Number(todayJs.match(/driverIndex < (\d+)/)?.[1] || 0);
-  if (index >= 0 && index < duration) lines.push('', `🚂 Машинист: ${drivers[index % drivers.length]}`);
+  const overrides = JSON.parse(todayJs.match(/var driverOverrides = (\{[^\n]+\});/)?.[1] || '{}');
+  const override = overrides[new Date(Date.UTC(+start[1], +start[2], +start[3] + index)).toISOString().slice(0, 10)];
+  if (index >= 0 && index < duration) lines.push('', `🚂 Машинист: ${override || drivers[index % drivers.length]}`);
   lines.push('', 'День сервера: с 05:00 до 05:00 МСК.', 'Подробности: https://alp-alfa.github.io/alp-wiki/');
   const content = lines.join('\n');
   if (content.length > 2000) throw new Error('Сообщение превышает 2000 символов');
