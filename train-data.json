@@ -1,6 +1,6 @@
 {
   "startDate": "2026-11-10",
-  "updatedDate": "2026-11-11",
+  "updatedDate": "2026-11-12",
   "seats": 20,
   "passengers": [
     "Aspid",
@@ -100,5 +100,49 @@
     "OLLi",
     "Психопат",
     "AlenaMiy"
-  ]
+  ],
+  "actualWagons": {
+    "2026-11-11": [
+      [
+        "новичок1",
+        "ГенералАдмирал",
+        "Геля58",
+        "Микадо1971",
+        "ИПетрович"
+      ],
+      [
+        "ZaSrAnEc",
+        "freerest",
+        "DeLucefer",
+        "KateOO",
+        "антикор"
+      ],
+      [
+        "Pustolaz",
+        "VolkovArtem",
+        "RumanticK",
+        "TRATATATA",
+        "арчик64"
+      ],
+      [
+        "Джарула",
+        "Gespenkras",
+        "Warrior38",
+        "яновичоквходьбе",
+        "woolfeg"
+      ]
+    ]
+  },
+  "seatSwaps": {
+    "2026-11-12": {
+      "ИПетрович": "Panuka"
+    },
+    "2026-11-13": {
+      "VolkovArtem": "Хммммм",
+      "woolfeg": "BarnI"
+    },
+    "2026-11-15": {
+      "Pustolaz": "vitek228"
+    }
+  }
 }

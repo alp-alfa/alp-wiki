@@ -45,7 +45,23 @@
     for(var dayIndex=0;dayIndex<week*7+7;dayIndex++) {
       var date=start+dayIndex*DAY;
       var players=Array.from({length:data.seats},function(_,j){return passengers[(dayIndex*data.seats+j)%passengers.length];});
-      var wagons=TrainWagons.assign(players,history);
+      var key = new Date(date).toISOString().slice(0, 10);
+      var swaps = data.seatSwaps && data.seatSwaps[key];
+      if (swaps) players = players.map(function (name) { return swaps[name] || name; });
+      var actual = data.actualWagons && data.actualWagons[key];
+      var wagons;
+      if (actual) {
+        wagons = actual;
+        players = actual.flat();
+        actual.forEach(function (wagon, index) {
+          wagon.forEach(function (name) {
+            if (!history[name]) history[name] = [0, 0, 0, 0];
+            history[name][index]++;
+          });
+        });
+      } else {
+        wagons = TrainWagons.assign(players, history);
+      }
       if(dayIndex>=week*7) days.push({date:date,name:names[new Date(date).getUTCDay()],players:players,wagons:wagons});
     }
     document.getElementById('train-total').textContent = passengers.length + ' участников · ' + data.seats + ' мест в день';
