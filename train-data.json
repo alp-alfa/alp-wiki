@@ -1,6 +1,6 @@
 {
   "startDate": "2026-11-10",
-  "updatedDate": "2026-11-12",
+  "updatedDate": "2026-11-13",
   "seats": 20,
   "passengers": [
     "Aspid",
@@ -160,13 +160,69 @@
         "Севдан",
         "Siбиряк"
       ]
+    ],
+    "2026-11-13": [
+      [
+        "BarnI",
+        "Vvti",
+        "нацгул",
+        "Ancestorum",
+        "Хммммм"
+      ],
+      [
+        "Jampa",
+        "BIZON002",
+        "бесята",
+        "Megavolf",
+        "perun150"
+      ],
+      [
+        "Yusup05",
+        "Архитектор",
+        "LordFonStriker",
+        "KoSteT",
+        "Рондо"
+      ],
+      [
+        "altmer",
+        "пират41",
+        "Andrej",
+        "VictoriyaT2010",
+        "KunIli"
+      ]
+    ],
+    "2026-11-14": [
+      [
+        "□□□□□□□□□",
+        "ТиГран",
+        "Отец",
+        "Гриня174",
+        "Catsmother"
+      ],
+      [
+        "ToxXxa",
+        "1gorST",
+        "Johnny23",
+        "кдв123",
+        "Marfus"
+      ],
+      [
+        "кротище",
+        "Aspid",
+        "Sweein",
+        "Гром1",
+        "Дарий"
+      ],
+      [
+        "19Серый70",
+        "StranNiK",
+        "MortalMaX",
+        "Anar2026",
+        "HelenBrodi"
+      ]
     ]
   },
   "seatSwaps": {
-    "2026-11-13": {
-      "VolkovArtem": "Хммммм",
-      "woolfeg": "BarnI"
-    },
     "2026-11-15": {
       "Pustolaz": "vitek228"
     }
