@@ -2,12 +2,16 @@
   const main=document.querySelector('main');
   const grid=document.createElement('div');grid.className='catalog-grid';
   const entries=[...main.querySelectorAll(':scope > details')];
+  const categories=new Map();
+  entries.forEach(d=>{let p=d.previousElementSibling;while(p&&p.tagName!=='H2')p=p.previousElementSibling;categories.set(d,p?p.textContent:'Основное');});
   const equipment=main.querySelector('a[href="equipment.html"]');
   if(equipment){const card=equipment.closest('.card');const tile=document.createElement('a');tile.href='equipment.html';tile.className='catalog-tile';tile.textContent='🛡️ Экипировка первого отряда';grid.append(tile);card.remove();}
   const layout=document.createElement('div');layout.className='guides-layout';
   const content=document.createElement('section');content.className='selected-guide';
   grid.className='guide-list';layout.append(grid,content);main.querySelector('h1').after(layout);
+  let previousCategory='';
   entries.forEach((detail,index)=>{
+    const category=categories.get(detail);if(category!==previousCategory){const heading=document.createElement('h3');heading.className='catalog-category';heading.textContent=category;grid.append(heading);previousCategory=category;}
     if(!detail.id)detail.id='guide-'+(index+1);
     content.append(detail);detail.removeAttribute('open');detail.hidden=true;detail.classList.add('guide-content');
     const button=document.createElement('button');button.className='catalog-tile';button.type='button';button.textContent=detail.querySelector('summary').textContent;

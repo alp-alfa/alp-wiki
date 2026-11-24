@@ -5,3 +5,5 @@
 .buildings-layout{display:grid;grid-template-columns:280px minmax(0,1fr);gap:20px;align-items:start}.building-list{max-height:75vh;overflow:auto;display:grid;gap:8px}.building-list .catalog-tile{min-height:80px;padding:12px}.buildings-layout #building-detail{margin:0;min-width:0}.building-list .catalog-tile small{font-size:12px}@media(max-width:700px){.buildings-layout{grid-template-columns:1fr}.building-list{max-height:300px}}
 
 .guides-layout{display:grid;grid-template-columns:280px minmax(0,1fr);gap:20px;align-items:start}.guide-list{display:grid;gap:8px;max-height:75vh;overflow:auto;position:sticky;top:120px}.guide-list .catalog-tile{min-height:0;padding:13px;font-size:14px}.selected-guide{min-width:0}.selected-guide #guide-back{margin-bottom:15px;font-size:13px;padding:8px;min-height:0}.selected-guide details>div{padding:0}.selected-guide figure{margin:12px 0}@media(max-width:700px){.guides-layout{grid-template-columns:1fr}.guide-list{position:static;max-height:280px}}
+
+.catalog-category{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);margin:18px 0 3px;padding:0 4px}.catalog-category:first-child{margin-top:3px}
