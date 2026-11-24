@@ -44,10 +44,10 @@
     const mobileLabel=document.createElement('label');mobileLabel.className='mobile-building-picker';mobileLabel.textContent='Выбрать постройку';
     const mobileSelect=document.createElement('select');mobileSelect.setAttribute('aria-label','Выбрать постройку');
     [...new Set(entries.map(b=>b.group))].forEach(group=>{const optgroup=document.createElement('optgroup');optgroup.label=group;entries.filter(b=>b.group===group).forEach(b=>{const option=document.createElement('option');option.value=b.id;option.textContent=b.name;optgroup.append(option);});mobileSelect.append(optgroup);});
-    mobileSelect.addEventListener('change',()=>select(mobileSelect.value));mobileLabel.append(mobileSelect);grid.before(mobileLabel);
+    mobileSelect.addEventListener('change',()=>select(mobileSelect.value));mobileLabel.append(mobileSelect);const mobileMenu=document.createElement('details');mobileMenu.className='mobile-catalog-menu';const menuTitle=document.createElement('summary');menuTitle.textContent='🏗️ Выбрать постройку';mobileMenu.append(menuTitle);grid.before(mobileMenu);mobileMenu.append(grid);
     function select(id){
       const b=entries.find(b=>b.id===id);if(!b)return;
-      mobileSelect.value=id;detail.replaceChildren();detail.hidden=false;
+      mobileSelect.value=id;menuTitle.replaceChildren(picture(b),document.createTextNode(b.name+' — выбрать другую'));mobileMenu.open=false;detail.replaceChildren();detail.hidden=false;
       const h=document.createElement('h2');h.textContent=b.name;detail.append(picture(b),h);
       detail.append(facts(b,['id','name','icon','iconFolder','levels','kind','group','quality','hasStars']));
       const levels=b.levels||[];
