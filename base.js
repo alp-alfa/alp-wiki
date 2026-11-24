@@ -36,13 +36,13 @@
         function draw(){const level=levels[Number(range.value)];label.textContent='Уровень '+level.level;body.replaceChildren(facts(level,['rq']));}
         range.addEventListener('input',draw);detail.append(label,range,body);draw();
       }
-      history.replaceState(null,'','#b-'+id);if(matchMedia('(max-width:700px)').matches)detail.scrollIntoView({block:'start'});
+      history.replaceState(null,'','#b-'+id);detail.scrollIntoView({block:'start'});
     }
     function render(){
       const query=document.getElementById('base-search').value.toLocaleLowerCase('ru');grid.replaceChildren();
       entries.filter(b=>(b.name+' '+b.group).toLocaleLowerCase('ru').includes(query)).forEach(b=>{const button=document.createElement('button');button.type='button';button.className='catalog-tile';const title=document.createElement('b'),small=document.createElement('small');title.textContent=b.name;small.textContent=b.group+' · '+b.kind;button.append(picture(b),title,small);button.addEventListener('click',()=>select(b.id));grid.append(button);});
       status.textContent='Найдено: '+grid.children.length;
     }
-    document.getElementById('base-search').addEventListener('input',render);render();select(location.hash.startsWith('#b-')?location.hash.slice(3):'1001');
+    document.getElementById('base-search').addEventListener('input',render);render();if(location.hash.startsWith('#b-'))select(location.hash.slice(3));
   }catch(e){status.textContent='Не удалось загрузить здания. Обновите страницу.';}
 })();
