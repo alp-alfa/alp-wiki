@@ -14,9 +14,26 @@
       if(typeof v==='object')return Object.entries(v).map(([k,n])=>(names[k]||k)+' — '+value(n,k)).join(' · ');
       return number(v);
     }
+    function smallIcon(src,alt) {
+      const image=document.createElement('img');image.src=src;image.alt=alt||'';image.className='fact-icon';return image;
+    }
     function facts(obj,skip){
       const dl=document.createElement('dl');dl.className='base-facts';
-      Object.entries(obj).filter(([k])=>!skip.includes(k)).forEach(([k,v])=>{const box=document.createElement('div'),dt=document.createElement('dt'),dd=document.createElement('dd');dt.textContent=names[k]||k;dd.textContent=value(v,k);box.append(dt,dd);dl.append(box);});return dl;
+      Object.entries(obj).filter(([k])=>!skip.includes(k)).forEach(([k,v])=>{const box=document.createElement('div'),dt=document.createElement('dt'),dd=document.createElement('dd');dt.textContent=names[k]||k;dd.textContent=value(v,k);
+      const resources={food:'Icon_Item_Food_0',metal:'Icon_Item_Wood_0',oil:'Icon_Item_Stone_0',heroExp:'Icon_Item_EXPWater_0'};
+      const symbols={maxLevel:'🏗️',desc:'📖',level:'🏗️',power:'💪',dpower:'📈',time:'⏱️',req:'🏗️',upCost:'📦',stars:'⭐',ben:'✨',total:'✨',maxPower:'💪',maxTotal:'✨'};
+      if(resources[k])dt.prepend(smallIcon('detail-'+resources[k]+'.png'));
+      else if(symbols[k])dt.prepend(symbols[k]+' ');
+      if(k==='workers') {
+        dd.replaceChildren();
+        v.forEach(w=>{const person=document.createElement('span');person.className='worker-item';person.append(smallIcon('detail-'+w[4]+'.png'),document.createTextNode(w[1]+' — '+w[2]));dd.append(person);});
+      }
+      if(k==='req'&&obj.rq) {
+        dd.replaceChildren();
+        obj.rq.forEach(q=>{if(q.type==='b'&&data.buildings[q.id]){const line=document.createElement('span');line.className='worker-item';line.append(picture(data.buildings[q.id]),document.createTextNode(q.name+' · ур. '+q.level));dd.append(line);}else if(q.text&&q.text.trim()!==';')dd.append(document.createTextNode(q.text));});
+        if(!dd.textContent.trim())dd.textContent=value(v,k);
+      }
+      box.append(dt,dd);dl.append(box);});return dl;
     }
     function picture(b) {
       const img=document.createElement('img');
@@ -24,9 +41,13 @@
       img.alt=''; img.loading='lazy'; img.className='building-icon';
       return img;
     }
+    const mobileLabel=document.createElement('label');mobileLabel.className='mobile-building-picker';mobileLabel.textContent='Выбрать постройку';
+    const mobileSelect=document.createElement('select');mobileSelect.setAttribute('aria-label','Выбрать постройку');
+    [...new Set(entries.map(b=>b.group))].forEach(group=>{const optgroup=document.createElement('optgroup');optgroup.label=group;entries.filter(b=>b.group===group).forEach(b=>{const option=document.createElement('option');option.value=b.id;option.textContent=b.name;optgroup.append(option);});mobileSelect.append(optgroup);});
+    mobileSelect.addEventListener('change',()=>select(mobileSelect.value));mobileLabel.append(mobileSelect);grid.before(mobileLabel);
     function select(id){
       const b=entries.find(b=>b.id===id);if(!b)return;
-      detail.replaceChildren();detail.hidden=false;
+      mobileSelect.value=id;detail.replaceChildren();detail.hidden=false;
       const h=document.createElement('h2');h.textContent=b.name;detail.append(picture(b),h);
       detail.append(facts(b,['id','name','icon','iconFolder','levels','kind','group','quality','hasStars']));
       const levels=b.levels||[];
