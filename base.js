@@ -18,10 +18,16 @@
       const dl=document.createElement('dl');dl.className='base-facts';
       Object.entries(obj).filter(([k])=>!skip.includes(k)).forEach(([k,v])=>{const box=document.createElement('div'),dt=document.createElement('dt'),dd=document.createElement('dd');dt.textContent=names[k]||k;dd.textContent=value(v,k);box.append(dt,dd);dl.append(box);});return dl;
     }
+    function picture(b) {
+      const img=document.createElement('img');
+      img.src='game-'+(b.iconFolder||'buildings')+'-'+b.icon+'.png';
+      img.alt=''; img.loading='lazy'; img.className='building-icon';
+      return img;
+    }
     function select(id){
       const b=entries.find(b=>b.id===id);if(!b)return;
       detail.replaceChildren();detail.hidden=false;
-      const h=document.createElement('h2');h.textContent=b.name;detail.append(h);
+      const h=document.createElement('h2');h.textContent=b.name;detail.append(picture(b),h);
       detail.append(facts(b,['id','name','icon','iconFolder','levels','kind','group','quality','hasStars']));
       const levels=b.levels||[];
       if(levels.length){
@@ -30,13 +36,13 @@
         function draw(){const level=levels[Number(range.value)];label.textContent='Уровень '+level.level;body.replaceChildren(facts(level,['rq']));}
         range.addEventListener('input',draw);detail.append(label,range,body);draw();
       }
-      history.replaceState(null,'','#b-'+id);detail.scrollIntoView({block:'start'});
+      history.replaceState(null,'','#b-'+id);if(matchMedia('(max-width:700px)').matches)detail.scrollIntoView({block:'start'});
     }
     function render(){
       const query=document.getElementById('base-search').value.toLocaleLowerCase('ru');grid.replaceChildren();
-      entries.filter(b=>(b.name+' '+b.group).toLocaleLowerCase('ru').includes(query)).forEach(b=>{const button=document.createElement('button');button.type='button';button.className='catalog-tile';const title=document.createElement('b'),small=document.createElement('small');title.textContent=b.name;small.textContent=b.group+' · '+b.kind;button.append(title,small);button.addEventListener('click',()=>select(b.id));grid.append(button);});
+      entries.filter(b=>(b.name+' '+b.group).toLocaleLowerCase('ru').includes(query)).forEach(b=>{const button=document.createElement('button');button.type='button';button.className='catalog-tile';const title=document.createElement('b'),small=document.createElement('small');title.textContent=b.name;small.textContent=b.group+' · '+b.kind;button.append(picture(b),title,small);button.addEventListener('click',()=>select(b.id));grid.append(button);});
       status.textContent='Найдено: '+grid.children.length;
     }
-    document.getElementById('base-search').addEventListener('input',render);render();if(location.hash.startsWith('#b-'))select(location.hash.slice(3));
+    document.getElementById('base-search').addEventListener('input',render);render();select(location.hash.startsWith('#b-')?location.hash.slice(3):'1001');
   }catch(e){status.textContent='Не удалось загрузить здания. Обновите страницу.';}
 })();
