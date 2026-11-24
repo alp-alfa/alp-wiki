@@ -3,10 +3,11 @@
   try{
     const response=await fetch('base-data.json');if(!response.ok)throw Error();const data=await response.json();
     const entries=[...Object.values(data.buildings).map(b=>({...b,kind:'Здание'})),...Object.values(data.decorations).map(b=>({...b,kind:'Декорация',group:'Декорации'}))];
-    const names={level:'Уровень',power:'Мощность',dpower:'Прирост мощности',food:'Еда',metal:'Металл',oil:'Нефть',time:'Время',req:'Требования',heroExp:'Опыт героев',upCost:'Материалов для улучшения',cost:'Стоимость',star:'Звезда',ben:'Бонусы',total:'Суммарные бонусы',extra:'Дополнительные бонусы',stars:'Звёзды',maxLevel:'Максимальный уровень',maxPower:'Максимальная мощность',maxTotal:'Максимальные бонусы',workers:'Выжившие',desc:'Описание'};
+    const names={level:'Уровень',power:'Мощность',dpower:'Прирост мощности',food:'Еда',metal:'Металл',oil:'Нефть',time:'Время',req:'Требования',heroExp:'Опыт героев',upCost:'Материалов для улучшения',cost:'Стоимость',star:'Звезда',ben:'Бонусы',total:'Суммарные бонусы',extra:'Дополнительные бонусы',stars:'Звёзды',maxLevel:'Максимальный уровень',maxPower:'Максимальная мощность',maxTotal:'Максимальные бонусы',workers:'Выжившие',desc:'Описание',partOf:'В составе',gives:'Открывает',contains:'Содержит'};
     const number=n=>typeof n==='number'?n.toLocaleString('ru-RU'):String(n);
     function value(v,key){
       if(v===null||v===undefined||v==='')return '—';
+      if(key==='workers')return v.map(w=>w[1]+' — '+w[2]).join(' · ')||'—';
       if(key==='time'){const n=Math.round(v);return Math.floor(n/86400)+' д '+Math.floor(n%86400/3600)+' ч '+Math.floor(n%3600/60)+' мин '+n%60+' с';}
       if(['ben','total','extra','maxTotal'].includes(key)&&Array.isArray(v))return v.map(([id,n])=>(Array.isArray(data.stats[id])?data.stats[id][0]:(data.stats[id]||id))+' — '+(data.stats[id]&&data.stats[id][1]===1?number(n*100)+'%':number(n))).join(' · ')||'—';
       if(Array.isArray(v))return v.map(x=>typeof x==='object'?Object.entries(x).map(([k,n])=>(names[k]||k)+' — '+value(n,k)).join('; '):number(x)).join(' · ')||'—';

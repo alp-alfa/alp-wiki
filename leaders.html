@@ -36,161 +36,17 @@
       <a href="guides.html">Гайды</a>
       <a href="base.html">База</a>
       <a href="promo.html">Промокоды</a>
-      <a class="active" href="leaders.html">🔒 Руководство</a>
     </nav>
   </div>
 </header>
 
-<main>
-  <h1>Для руководства</h1>
-
-  <form id="login" class="login" autocomplete="off">
-    <p class="lead" style="margin:0">Расписание машинистов и схема расстановки баз. Вход только для лидера и Р4.</p>
-    <label for="user">Логин</label>
-    <input id="user" type="text" autocapitalize="off" spellcheck="false" required>
-    <label for="pw">Пароль</label>
-    <input id="pw" type="password" required>
-    <button class="btn" type="submit">Войти</button>
-    <p class="err" id="err" role="alert"></p>
-  </form>
-
-  <section id="content" hidden>
-    <h2>Машинисты: график на 30 дней</h2>
-    <p class="today-box" id="today-box"></p>
-    <div class="table-wrap">
-      <table>
-        <thead><tr><th>День</th><th>Машинист</th><th>Запасной</th></tr></thead>
-        <tbody id="rows"></tbody>
-      </table>
-    </div>
-    <p class="lead" id="note" style="font-size:14px"></p>
-    <section aria-labelledby="layout-title">
-      <h2 id="layout-title">🗺️ Расстановка баз альянса</h2>
-      <p>Черновик от 6 ноября 2026: <b>92 базы с никами</b>. Строй у города: сильные и слабые ряды чередуются. В центре — засада на одну клетку. Nemmi и Психопат стоят рядом.</p>
-      <p class="note">Учтены новые участники и выходы из альянса. Шесть новичков временно размещены в слабых рядах: их мощь пока неизвестна. Шесть Р3, которых не было на исходных скриншотах, пока не включены. Буква и номер ряда на схеме обозначают место, а не координаты сервера.</p>
-      <p id="layout-status" class="lead" role="status" aria-live="polite"></p>
-      <div class="layout-actions" id="layout-actions" hidden>
-        <a class="btn" id="layout-open" target="_blank" rel="noopener">Открыть в полном размере</a>
-        <a class="btn" id="layout-download" download="ALP-rasstanovka-06-11-2026.jpg">Скачать схему JPG</a>
-      </div>
-      <img id="alliance-layout" alt="Схема расстановки 92 баз альянса АльфА с никами участников и обозначениями рангов" width="3000" height="3340" hidden>
-    </section>
-    <p></p>
-    <button class="link-btn" id="logout" type="button">Выйти</button>
-  </section>
-</main>
+<main><h1>Руководство</h1><p><a href="index.html">На главную</a></p></main>
 
 <footer>Фанатский сайт альянса [ALP] АльфА. Не связан с разработчиками Z:Route.</footer>
 
 <!-- Зашифрованное расписание. Без пароля не читается. Обновляется скриптом encrypt.py. -->
-<script id="vault" type="application/json">{"s":"p5akHYEiubV+s/lKPMwNGQ==","i":"/Y8hqZkCLxe9Lou7","n":250000,"c":"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"}</script>
 
-<script>
-(function () {
-  var KEY = 'alp-leaders-pw';
-  var vault = JSON.parse(document.getElementById('vault').textContent);
-  var b64 = function (s) { return Uint8Array.from(atob(s), function (c) { return c.charCodeAt(0); }); };
-  var esc = function (s) { var d = document.createElement('div'); d.textContent = s; return d.innerHTML; };
-  var layoutUrl = null, layoutVersion = 0;
-  function clearLayout() {
-    layoutVersion++;
-    if (layoutUrl) URL.revokeObjectURL(layoutUrl);
-    layoutUrl = null;
-    var image = document.getElementById('alliance-layout');
-    image.hidden = true; image.removeAttribute('src');
-    document.getElementById('layout-actions').hidden = true;
-    document.getElementById('layout-open').removeAttribute('href');
-    document.getElementById('layout-download').removeAttribute('href');
-    document.getElementById('layout-status').textContent = '';
-  }
-  async function loadLayout(pw) {
-    clearLayout();
-    var version = layoutVersion;
-    var status = document.getElementById('layout-status');
-    status.textContent = 'Загружаем схему расстановки…';
-    try {
-      var response = await fetch('alliance-layout.enc', { cache: 'no-store' });
-      if (!response.ok) throw new Error('load');
-      var bytes = new Uint8Array(await response.arrayBuffer());
-      if (new TextDecoder().decode(bytes.slice(0, 4)) !== 'ALP1') throw new Error('format');
-      var base = await crypto.subtle.importKey('raw', new TextEncoder().encode(pw), 'PBKDF2', false, ['deriveKey']);
-      var key = await crypto.subtle.deriveKey(
-        { name: 'PBKDF2', salt: bytes.slice(4, 20), iterations: 250000, hash: 'SHA-256' },
-        base, { name: 'AES-GCM', length: 256 }, false, ['decrypt']);
-      var plain = await crypto.subtle.decrypt({ name: 'AES-GCM', iv: bytes.slice(20, 32) }, key, bytes.slice(32));
-      if (version !== layoutVersion || document.getElementById('content').hidden) return;
-      layoutUrl = URL.createObjectURL(new Blob([plain], { type: 'image/jpeg' }));
-      var image = document.getElementById('alliance-layout');
-      image.src = layoutUrl; image.hidden = false;
-      document.getElementById('layout-open').href = layoutUrl;
-      document.getElementById('layout-download').href = layoutUrl;
-      document.getElementById('layout-actions').hidden = false;
-      status.textContent = 'Полный размер: 3000 × 3340. Для увеличения открой схему отдельно.';
-    } catch (e) {
-      if (version === layoutVersion) status.textContent = 'Не удалось загрузить схему. Обнови страницу или повтори вход.';
-    }
-  }
 
-  async function decrypt(pw) {
-    var base = await crypto.subtle.importKey('raw', new TextEncoder().encode(pw), 'PBKDF2', false, ['deriveKey']);
-    var key = await crypto.subtle.deriveKey(
-      { name: 'PBKDF2', salt: b64(vault.s), iterations: vault.n, hash: 'SHA-256' },
-      base, { name: 'AES-GCM', length: 256 }, false, ['decrypt']);
-    var buf = await crypto.subtle.decrypt({ name: 'AES-GCM', iv: b64(vault.i) }, key, b64(vault.c));
-    return JSON.parse(new TextDecoder().decode(buf));
-  }
 
-  function show(data) {
-    var gameNow = new Date(Date.now() - 2 * 3600 * 1000);
-    var todayDate = gameNow.toISOString().slice(0,10); // смена игрового дня в 05:00 МСК
-    var html = '', today = null;
-    data.rows.forEach(function (r) {
-      if (r.date === todayDate) today = r;
-      html += '<tr' + (r.date === todayDate ? ' class="today"' : '') + '><td>' + esc(r.day) +
-              '</td><td>' + esc(r.main) + '</td><td>' + esc(r.reserve) + '</td></tr>';
-    });
-    document.getElementById('rows').innerHTML = html;
-    document.getElementById('today-box').innerHTML = today
-      ? 'Сегодня машинист: <b>' + esc(today.main) + '</b> · запасной: ' + esc(today.reserve) : '';
-    document.getElementById('note').textContent = data.note || '';
-    document.getElementById('login').hidden = true;
-    document.getElementById('content').hidden = false;
-  }
-
-  async function tryLogin(pw, silent) {
-    try {
-      var data = await decrypt(pw);
-      try { localStorage.setItem(KEY, pw); } catch (e) {}
-      show(data);
-      loadLayout(pw);
-    } catch (e) {
-      if (!silent) document.getElementById('err').textContent = 'Неверный логин или пароль.';
-    }
-  }
-
-  document.getElementById('login').addEventListener('submit', function (e) {
-    e.preventDefault();
-    document.getElementById('err').textContent = '';
-    tryLogin(document.getElementById("user").value.trim().toLowerCase() + ':' + document.getElementById('pw').value, false);
-  });
-  document.getElementById('logout').addEventListener('click', function () {
-    clearLayout();
-    try { localStorage.removeItem(KEY); } catch (e) {}
-    document.getElementById('rows').innerHTML = '';
-    document.getElementById('pw').value = '';
-    document.getElementById('content').hidden = true;
-    document.getElementById('login').hidden = false;
-  });
-
-  var saved = null;
-  try { saved = localStorage.getItem(KEY); } catch (e) {}
-  if (saved) tryLogin(saved, true);
-  // Смена дня в 05:00 МСК — перерисовываем «Сегодня машинист»
-  var D = 86400000, next = Math.floor((Date.now() - 7200000) / D + 1) * D + 7200000;
-  function check() { if (Date.now() >= next) location.reload(); }
-  setInterval(check, 30000);
-  document.addEventListener('visibilitychange', function () { if (!document.hidden) check(); });
-})();
-</script>
 </body>
 </html>
