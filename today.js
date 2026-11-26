@@ -31,9 +31,9 @@
   if (title) title.textContent = (tpl && tpl.getAttribute('data-title')) || names[day];
   if (plan && tpl) plan.appendChild(tpl.content.cloneNode(true));
   var drv = document.getElementById('today-driver');
-  // Очередь на 30 дней с 9 ноября 2026: RumanticK.
-  var drivers = ["RumanticK","Психопат","OLLi","AlenaMiy (R5)","Man'yak","freerest","Балдеж"];
-  var driverIndex = Math.floor((now.getTime() - Date.UTC(2026, 10, 9)) / 86400000);
+  // Очередь на 30 дней с 25 ноября 2026: RumanticK, далее по фактическому порядку.
+  var drivers = ["RumanticK","OLLi","Психопат","AlenaMiy (R5)","Man'yak","freerest","Балдеж"];
+  var driverIndex = Math.floor((now.getTime() - Date.UTC(2026, 10, 25)) / 86400000);
   var driverOverrides = {"2026-11-12":"AlenaMiy (R5)","2026-11-13":"OLLi"};
   var currentDriver = driverOverrides[now.toISOString().slice(0, 10)] || ( driverIndex >= 0 && driverIndex < 30 ? drivers[driverIndex % drivers.length] : 'расписание уточняется');
   if (drv) {

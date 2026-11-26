@@ -91,12 +91,12 @@
   ],
   "excludedDrivers": [
     "RumanticK",
-    "freerest",
-    "Балдеж",
-    "Man'yak",
     "OLLi",
     "Психопат",
-    "AlenaMiy"
+    "AlenaMiy",
+    "Man'yak",
+    "freerest",
+    "Балдеж"
   ],
   "actualWagons": {
     "2026-11-11": [
