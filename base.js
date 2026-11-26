@@ -53,7 +53,7 @@
       const b=entries.find(b=>b.id===id);if(!b)return;
       mobileSelect.value=id;menuTitle.replaceChildren(picture(b),document.createTextNode(b.name+' — выбрать другую'));mobileMenu.open=matchMedia('(min-width:701px)').matches;detail.replaceChildren();detail.hidden=false;
       const h=document.createElement('h2');h.textContent=b.name;detail.append(picture(b),h);
-      detail.append(facts(b,['id','name','icon','iconFolder','levels','kind','group','quality','hasStars']));
+      detail.append(facts(b,['id','name','icon','iconFolder','levels','kind','group','quality','hasStars','workers']));
       const levels=b.levels||[];
       if(levels.length){
         const label=document.createElement('label'),range=document.createElement('input'),body=document.createElement('div');
@@ -61,6 +61,7 @@
         function draw(){const level=levels[Number(range.value)];label.textContent='Уровень '+level.level;body.replaceChildren(facts(level,['rq']));}
         range.addEventListener('input',draw);detail.append(label,range,body);draw();
       }
+      if(b.workers&&b.workers.length) detail.append(facts({workers:b.workers},[]));
       history.replaceState(null,'','#b-'+id);if(matchMedia('(max-width:700px)').matches)detail.scrollIntoView({block:'start'});
     }
     function render(){
