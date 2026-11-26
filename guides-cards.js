@@ -9,6 +9,10 @@
   const layout=document.createElement('div');layout.className='guides-layout';
   const content=document.createElement('section');content.className='selected-guide';
   grid.className='guide-list';const menu=document.createElement('details');menu.className='mobile-catalog-menu guide-menu';const title=document.createElement('summary');title.textContent='📖 Выбрать гайд';menu.append(title,grid);layout.append(menu,content);main.querySelector('h1').after(layout);
+
+    const desktopLayout=matchMedia('(min-width:701px)');
+    function syncLayout(){menu.open=desktopLayout.matches;}
+    desktopLayout.addEventListener('change',syncLayout);syncLayout();
   let previousCategory='';
   entries.forEach((detail,index)=>{
     const category=categories.get(detail);if(category!==previousCategory){const heading=document.createElement('h3');heading.className='catalog-category';heading.textContent=category;grid.append(heading);previousCategory=category;}
@@ -26,7 +30,7 @@
     entries.forEach(d=>{d.hidden=d!==selected;d.open=d===selected;});
     let back=document.getElementById('guide-back');
     if(!back){back=document.createElement('button');back.id='guide-back';back.type='button';back.className='catalog-tile';back.textContent='← Выбрать другой гайд';content.prepend(back);back.addEventListener('click',()=>{entries.forEach(d=>{d.hidden=true;d.open=false});back.hidden=true;history.replaceState(null,'',location.pathname);grid.scrollIntoView({block:'start'});});}
-    title.textContent=selected.querySelector('summary').textContent+' — выбрать другой';menu.open=false;back.hidden=false;history.replaceState(null,'','#'+id);if(matchMedia('(max-width:700px)').matches)selected.scrollIntoView({block:'start'});
+    title.textContent=selected.querySelector('summary').textContent+' — выбрать другой';menu.open=matchMedia('(min-width:701px)').matches;back.hidden=false;history.replaceState(null,'','#'+id);if(matchMedia('(max-width:700px)').matches)selected.scrollIntoView({block:'start'});
   }
   if(location.hash)select(decodeURIComponent(location.hash.slice(1)));else if(entries.length)select(entries[0].id);
   window.addEventListener('hashchange',()=>select(decodeURIComponent(location.hash.slice(1))));
