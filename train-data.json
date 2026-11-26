@@ -28,7 +28,6 @@
     "TRATATATA",
     "Джарула",
     "Panuka",
-    "freerest",
     "Хммммм",
     "Севдан",
     "ГенералАдмирал",
@@ -92,6 +91,7 @@
   ],
   "excludedDrivers": [
     "RumanticK",
+    "freerest",
     "Балдеж",
     "Man'yak",
     "OLLi",
@@ -110,7 +110,7 @@
       [
         "ZaSrAnEc",
         "freerest",
-        "DeLucefer",
+            "DeLucefer",
         "KateOO",
         "антикор"
       ],
