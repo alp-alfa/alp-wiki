@@ -53,7 +53,7 @@
       const b=entries.find(b=>b.id===id);if(!b)return;
       mobileSelect.value=id;menuTitle.replaceChildren(picture(b),document.createTextNode(b.name+' — выбрать другую'));mobileMenu.open=matchMedia('(min-width:701px)').matches;detail.replaceChildren();detail.hidden=false;
       const h=document.createElement('h2');h.textContent=b.name;detail.append(picture(b),h);
-      detail.append(facts(b,['id','name','icon','iconFolder','levels','kind','group','quality','hasStars','workers']));
+      detail.append(facts(b,['id','name','icon','iconFolder','levels','kind','group','quality','hasStars','workers','gives','partOf','contains']));
       const levels=b.levels||[];
       if(levels.length){
         const label=document.createElement('label'),range=document.createElement('input'),body=document.createElement('div');
